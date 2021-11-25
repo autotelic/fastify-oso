@@ -1,5 +1,5 @@
 {
-  "name": "fastify-plugin-template",
+  "name": "@autotelic/fastify-oso",
   "version": "0.0.0",
   "description": "Plugin for fastify",
   "main": "index.js",
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/autotelic/fastify-plugin-template#readme",
   "dependencies": {
-    "fastify-plugin": "^3.0.0"
+    "fastify-plugin": "^3.0.0",
+    "oso": "^0.23.0"
   },
   "devDependencies": {
     "tap": "^15.0.6",

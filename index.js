@@ -1,9 +1,20 @@
 'use strict'
 
 const fp = require('fastify-plugin')
+const { Oso } = require('oso')
 
-async function fastifyPluginTemplate (fastify, options) {
-
+const defaultOptions = {
+  setupOso: async oso => oso
 }
 
-module.exports = fp(fastifyPluginTemplate, { name: 'fastify-plugin-template' })
+async function fastifyOso (fastify, options) {
+  const { setupOso } = {
+    ...options,
+    ...defaultOptions
+  }
+  const oso = new Oso()
+  await setupOso(oso)
+  fastify.decorate('oso', oso)
+}
+
+module.exports = fp(fastifyOso, { name: 'fastify-oso' })
