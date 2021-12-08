@@ -7,11 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "tap --100 -j1 -R classic",
+    "test": "c8 --100 ava",
     "example": "echo no example provided",
     "lint": "standard",
-    "fix": "npm run lint -- --fix",
-    "validate": "npm run lint && npm run test"
+    "fix": "standard --fix",
+    "validate": "npm run lint && npm run test",
+    "postinstall": "husky install"
   },
   "repository": {
     "type": "git",
@@ -29,11 +30,13 @@
     "oso": "^0.24.0"
   },
   "devDependencies": {
-    "tap": "^15.0.6",
+    "ava": "^3.15.0",
+    "c8": "^7.10.0",
     "fastify": "^3.0.0",
     "fastify-cli": "^2.5.1",
-    "standard": "^16.0.3",
-    "lint-staged": "^12.1.2"
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
+    "standard": "^16.0.3"
   },
   "lint-staged": {
     "*.{js,jsx}": [
