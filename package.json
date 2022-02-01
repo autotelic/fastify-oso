@@ -10,8 +10,7 @@
     "test": "c8 --100 ava",
     "lint": "standard",
     "fix": "standard --fix",
-    "validate": "npm run lint && npm run test",
-    "postinstall": "husky install"
+    "validate": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
