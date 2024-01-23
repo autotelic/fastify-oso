@@ -1,10 +1,9 @@
-'use strict'
-
-const { fastifyOso } = require('../..')
+import fastify from 'fastify'
+import { fastifyOso } from '../../index.js'
 
 const PORT = process.env.PORT || 3000
 
-const app = require('fastify')()
+const app = fastify()
 
 const opts = {
   async setupOso (oso) {
@@ -33,6 +32,6 @@ app.get('/public', (request, response) => 'public information')
 // Requests here will not be allowed.
 app.get('/private', (request, reply) => 'super secret')
 
-app.listen(PORT, (_, address) => {
+app.listen({ port: PORT }, (_, address) => {
   console.log(`listening at ${address}`)
 })

@@ -8,22 +8,22 @@ Basic usage configuring an oso instance and authorizing requests using the onReq
 
 - start the server
 
-    ```
-    $ node index.js
+    ```sh
+    node index.js
     ```
 
 - Make an http request to the /public endpoint:
 
-    ```
-    $ curl http://localhost:3000/public
+    ```sh
+    curl http://localhost:3000/public
     ```
 
     You should receive a 200 response with body: `public information`
 
 - Make an http request to the /private endpoint:
 
-    ```
-    $ curl http://localhost:3000/private
+    ```sh
+    curl http://localhost:3000/private
     ```
 
     You should receive a 403 response with body "Access Denied"

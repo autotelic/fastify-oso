@@ -1,10 +1,9 @@
-'use strict'
-
-const { fastifyOso } = require('../..')
+import fastify from 'fastify'
+import { fastifyOso } from '../../index.js'
 
 const PORT = process.env.PORT || 3000
 
-const app = require('fastify')()
+const app = fastify()
 
 class Secret {
   constructor (id, secret, roles) {
@@ -66,6 +65,6 @@ app.get('/secret/:id', async (request, reply) => {
   return resource
 })
 
-app.listen(PORT, (_, address) => {
+app.listen({ port: PORT }, (_, address) => {
   console.log(`listening at ${address}`)
 })

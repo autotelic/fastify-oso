@@ -9,22 +9,22 @@ users role.
 
 - start the server
 
-    ```
-    $ node index.js
+    ```sh
+    node index.js
     ```
 
 - Make an http request to the /public endpoint:
 
-    ```
-    $ curl http://localhost:3000/public
+    ```sh
+    curl http://localhost:3000/public
     ```
 
     You should receive a 200 response with body: `public information`
 
 - Make an http request to the /secret/:id endpoint:
 
-    ```
-    $ curl http://localhost:3000/secret/1
+    ```sh
+    curl http://localhost:3000/secret/1
     ```
 
     You should receive a 403 response with body "Access Denied"
@@ -33,8 +33,8 @@ users role.
 - Make another http request to the /secret/:id endpoint, this time setting the user
 role and name as request headers:
 
-    ```shell
-    $ curl http://localhost:3000/secret/1 \
+    ```sh
+    curl http://localhost:3000/secret/1 \
       -H 'role: admin' \
       -H 'name: John Doe'
     ```
