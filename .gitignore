@@ -62,3 +62,6 @@ profile*
 
 # Lockfile
 package-lock.json
+
+# node-tap
+.tap

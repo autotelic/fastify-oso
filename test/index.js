@@ -1,5 +1,6 @@
-import test from 'ava'
 import fastify from 'fastify'
+import { test } from 'tap'
+
 import { fastifyOso } from '../index.js'
 
 const rootPolicy = `
@@ -9,14 +10,12 @@ allow_request(_, request) if
 
 async function build (plugin, opts) {
   const app = fastify()
-  app.get('/public', (request, response) => {
-    return 'public intel'
-  })
+  app.get('/public', (request, response) => 'public intel')
   app.register(plugin, opts)
   return app
 }
 
-test('decorator: "oso.authorizeRequest" authorizes access to routes', async ({ is }) => {
+test('decorator: "oso.authorizeRequest" authorizes access to routes', async ({ equal }) => {
   async function setupOso (oso) {
     await oso.loadStr(rootPolicy)
     return oso
@@ -24,7 +23,7 @@ test('decorator: "oso.authorizeRequest" authorizes access to routes', async ({ i
 
   const app = await build(fastifyOso, { setupOso })
 
-  app.addHook('onRequest', async function (request, reply) {
+  app.addHook('onRequest', async function onRequest (request, reply) {
     try {
       await app.oso.authorizeRequest({}, request)
     } catch (error) {
@@ -38,16 +37,16 @@ test('decorator: "oso.authorizeRequest" authorizes access to routes', async ({ i
 
   // Allows Access to the /public route (Declared in the rootPolicy Oso rule)
   const publicResponse = await app.inject('/public')
-  is(200, publicResponse.statusCode)
-  is('public intel', publicResponse.body)
+  equal(200, publicResponse.statusCode)
+  equal('public intel', publicResponse.body)
 
   // Denies Access to the /private route (Oso is deny by default)
   const privateResponse = await app.inject('/private')
-  is(403, privateResponse.statusCode)
-  is('Access Denied', privateResponse.body)
+  equal(403, privateResponse.statusCode)
+  equal('Access Denied', privateResponse.body)
 })
 
-test('requestDecorator: "authorizeRequest" authorizes access to routes', async ({ is }) => {
+test('requestDecorator: "authorizeRequest" authorizes access to routes', async ({ equal }) => {
   async function setupOso (oso) {
     await oso.loadStr(rootPolicy)
     return oso
@@ -55,7 +54,7 @@ test('requestDecorator: "authorizeRequest" authorizes access to routes', async (
 
   const app = await build(fastifyOso, { setupOso })
 
-  app.addHook('onRequest', async function (request, reply) {
+  app.addHook('onRequest', async function onRequest (request, reply) {
     try {
       await request.authorizeRequest({ name: 'jane' }, request)
     } catch (error) {
@@ -69,11 +68,11 @@ test('requestDecorator: "authorizeRequest" authorizes access to routes', async (
 
   // Allows Access to the /public route (Declared in the rootPolicy Oso rule)
   const publicResponse = await app.inject('/public')
-  is(200, publicResponse.statusCode)
-  is('public intel', publicResponse.body)
+  equal(200, publicResponse.statusCode)
+  equal('public intel', publicResponse.body)
 
   // Denies Access to the /private route (Oso is deny by default)
   const privateResponse = await app.inject('/private')
-  is(403, privateResponse.statusCode)
-  is('Access Denied', privateResponse.body)
+  equal(403, privateResponse.statusCode)
+  equal('Access Denied', privateResponse.body)
 })

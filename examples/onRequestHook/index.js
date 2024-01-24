@@ -1,4 +1,5 @@
 import fastify from 'fastify'
+
 import { fastifyOso } from '../../index.js'
 
 const PORT = process.env.PORT || 3000
@@ -16,9 +17,11 @@ const opts = {
 // Register fastify-oso
 app.register(fastifyOso, opts)
 
-// For every request, this hook will run. If a request is unauthorized, authorizeRequest will throw
-// an oso authorization error. We catch that and respond to the client with a `403` code.
-app.addHook('onRequest', async function (request, reply) {
+/*
+ * For every request, this hook will run. If a request is unauthorized, authorizeRequest will throw
+ * an oso authorization error. We catch that and respond to the client with a `403` code.
+ */
+app.addHook('onRequest', async function onRequest (request, reply) {
   try {
     await request.authorizeRequest({}, request)
   } catch (error) {

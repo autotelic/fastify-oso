@@ -1,4 +1,5 @@
 import fastify from 'fastify'
+
 import { fastifyOso } from '../../index.js'
 
 const PORT = process.env.PORT || 3000
