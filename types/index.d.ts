@@ -9,6 +9,9 @@ export interface FastifyOsoOptions {
 }
 
 declare module 'fastify' {
+  interface FastifyInstance {
+    oso: Oso
+  }
   interface FastifyRequest {
     authorizeRequest: AuthorizeRequestFunction
   }
