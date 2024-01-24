@@ -1,22 +1,20 @@
 # fastify-oso
 
-A plugin for implementing [Oso](https://github.com/osohq/oso)
-authorization in fastify applications.
+A plugin for implementing [Oso](https://github.com/osohq/oso) authorization in fastify applications.
 
 ## Install
 
-```
+```sh
 npm i @autotelic/fastify-oso
 ```
 
 ## Usage
 
 ```js
-'use strict'
+import { fastifyOso } from '@autotelic/fastify-oso'
+import fastify from 'fastify'
 
-const { fastifyOso } = require('@autotelic/fastify-oso')
-
-const app = require('fastify')()
+const app = fastify()
 
 const PORT = process.env.PORT || 3000
 
@@ -76,6 +74,7 @@ app.listen(PORT, (_, address) => {console.log(`Listening at: ${address}`)})
 ## Examples
 
 We provide the following usage examples and recipes:
+
 - [basic](./examples/basic/README.md)
 - [onRequest hook](./examples/onRequestHook/README.md)
 
@@ -86,6 +85,7 @@ We provide the following usage examples and recipes:
 #### Options
 
 The configuration object accepts the following fields":
+
 ##### - `setupOso: async (Oso) => Oso`
 
   A function that receives the oso instance, applies some configuration to that
@@ -103,11 +103,12 @@ Exposes the oso [authorizeRequest](https://docs.osohq.com/node/reference/api/cla
 
 This is useful for handling authorization within request lifecycle hooks.
 
-## Github Actions/Workflows
+## Triggering a Release
 
-#### Triggering a Release
+_Prerequisite: Update the repository access for the shared [NPM_PUBLISH_TOKEN](https://github.com/organizations/autotelic/settings/secrets/actions/NPM_PUBLISH_TOKEN) secret._
 
-* Trigger the release workflow via release tag
+Trigger the release workflow via a tag
+
   ```sh
   git checkout main && git pull
   npm version { minor | major | path }

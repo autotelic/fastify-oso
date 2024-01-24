@@ -1,11 +1,9 @@
-'use strict'
-
-const fp = require('fastify-plugin')
-const { Oso } = require('oso')
+import fp from 'fastify-plugin'
+import { Oso } from 'oso'
 
 const AUTHORIZE_REQUEST = 'authorizeRequest'
 
-async function fastifyOso (fastify, options) {
+async function fastifyOsoPlugin (fastify, options) {
   const { setupOso } = options
   const oso = new Oso()
 
@@ -19,4 +17,7 @@ async function fastifyOso (fastify, options) {
   fastify.decorateRequest(AUTHORIZE_REQUEST, wrapDecorator(AUTHORIZE_REQUEST))
 }
 
-module.exports = fp(fastifyOso, { name: 'fastify-oso' })
+const fastifyOso = fp(fastifyOsoPlugin, { name: 'fastify-oso' })
+
+export { fastifyOso }
+export default fastifyOso

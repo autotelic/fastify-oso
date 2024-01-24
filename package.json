@@ -3,14 +3,20 @@
   "version": "0.2.2",
   "description": "Plugin for fastify",
   "main": "index.js",
-  "directories": {
-    "test": "test"
+  "types": "types/index.d.ts",
+  "type": "module",
+  "files": [
+    "index.js",
+    "types/index.d.ts"
+  ],
+  "engines": {
+    "node": ">=18"
   },
   "scripts": {
-    "test": "c8 --100 ava",
-    "lint": "standard",
-    "fix": "standard --fix",
-    "validate": "npm run lint && npm run test"
+    "lint": "eslint .",
+    "test": "tap",
+    "test:types": "tsd",
+    "validate": "npm run lint && npm test && npm run test:types"
   },
   "repository": {
     "type": "git",
@@ -24,21 +30,22 @@
   },
   "homepage": "https://github.com/autotelic/fastify-oso#readme",
   "dependencies": {
-    "fastify-plugin": "^3.0.0",
-    "oso": "^0.26.0"
+    "fastify-plugin": "^4.5.1",
+    "oso": "^0.27.3"
   },
   "devDependencies": {
-    "ava": "^4.0.1",
-    "c8": "^7.10.0",
-    "fastify": "^3.0.0",
-    "fastify-cli": "^2.5.1",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.1.2",
-    "standard": "^16.0.3"
+    "@autotelic/eslint-config-js": "^0.2.1",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "fastify": "^4.25.2",
+    "fastify-cli": "^6.0.1",
+    "tap": "^18.6.1",
+    "tsd": "^0.30.4",
+    "typescript": "^5.3.3"
   },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "npm run fix"
-    ]
+  "tsd": {
+    "directory": "types"
   }
 }
