@@ -1,10 +1,23 @@
-import type { FastifyPluginCallback } from 'fastify'
+import type { FastifyPluginCallback, FastifyRequest } from 'fastify'
+import { Oso } from 'oso'
 
-export interface PluginOptions {
-  mandatory: string
+export type SetupOsoFunction = (oso: Oso) => Promise<Oso>
+
+export type AuthorizeRequestFunction = (actor: object, request: FastifyRequest) => Promise<void>
+export interface FastifyOsoOptions {
+  setupOso: SetupOsoFunction
 }
 
-declare const fastifyPluginTemplate: FastifyPluginCallback<PluginOptions>
+declare module 'fastify' {
+  interface FastifyInstance {
+    oso: Oso
+  }
+  interface FastifyRequest {
+    authorizeRequest: AuthorizeRequestFunction
+  }
+}
 
-export default fastifyPluginTemplate
-export { fastifyPluginTemplate }
+declare const fastifyOso: FastifyPluginCallback<FastifyOsoOptions>
+
+export default fastifyOso
+export { fastifyOso }
