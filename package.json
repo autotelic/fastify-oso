@@ -34,7 +34,7 @@
     "oso": "^0.27.3"
   },
   "devDependencies": {
-    "@autotelic/eslint-config-js": "^0.2.1",
+    "@autotelic/eslint-config-js": "^0.3.0",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "eslint": "^8.56.0",
